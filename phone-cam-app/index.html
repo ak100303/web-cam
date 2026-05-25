@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamLink - Mobile PC Cam</title>
+    <meta name="description" content="Use your phone camera as a high-quality PC webcam instantly with StreamLink.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Background Animation -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        
+        <header>
+            <h1><span class="gradient-text">Stream</span>Link</h1>
+            <p>Turn your phone into a premium PC webcam</p>
+        </header>
+
+        <main id="main-container">
+            <!-- Mode Selection -->
+            <div id="mode-selection" class="glass-panel active-view">
+                <h2>Select Your Device</h2>
+                <div class="mode-buttons">
+                    <button id="btn-pc-mode" class="btn primary-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        I am on PC (Viewer)
+                    </button>
+                    <button id="btn-mobile-mode" class="btn secondary-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                        I am on Mobile (Camera)
+                    </button>
+                </div>
+            </div>
+
+            <!-- PC Mode (Viewer) -->
+            <div id="pc-view" class="glass-panel hidden-view">
+                <button class="back-btn">← Back</button>
+                <h2>PC Viewer</h2>
+                <div class="connection-info">
+                    <p>Your Connection ID:</p>
+                    <div class="id-display">
+                        <span id="my-pc-id">Generating...</span>
+                        <button id="copy-btn" class="icon-btn" title="Copy ID">📋</button>
+                    </div>
+                    <p class="instruction">Enter this ID on your mobile device to connect.</p>
+                </div>
+                
+                <div class="video-container">
+                    <video id="remote-video" autoplay playsinline></video>
+                    <div class="video-overlay" id="waiting-overlay">Waiting for mobile connection...</div>
+                </div>
+                <div class="controls">
+                    <button id="fullscreen-btn" class="btn">Enter Fullscreen</button>
+                </div>
+            </div>
+
+            <!-- Mobile Mode (Camera) -->
+            <div id="mobile-view" class="glass-panel hidden-view">
+                <button class="back-btn">← Back</button>
+                <h2>Mobile Camera</h2>
+                
+                <div id="connect-form" class="connect-form">
+                    <label for="target-id">Enter PC Connection ID:</label>
+                    <input type="text" id="target-id" placeholder="e.g. abc-123" autocomplete="off">
+                    <button id="connect-btn" class="btn primary-btn">Connect & Stream</button>
+                </div>
+
+                <div class="video-container" id="local-video-container" style="display:none;">
+                    <video id="local-video" autoplay playsinline muted></video>
+                    <div class="status-badge" id="stream-status">Live</div>
+                </div>
+                
+                <div class="controls hidden" id="mobile-controls">
+                    <button id="switch-camera-btn" class="btn icon-btn">🔄 Flip Cam</button>
+                    <button id="stop-stream-btn" class="btn danger-btn">Stop Stream</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- PeerJS -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
